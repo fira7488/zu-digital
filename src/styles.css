@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #090909;
+  --color-card: #111111;
+  --color-border: #2a2a2a;
+  --color-title: #ffffff;
+  --color-description: #a3a3a3;
+  --color-price: #f4b63e;
+  --color-surface: #171310;
+  --color-surface-2: #1f1911;
+  --color-gold: #d4a017;
+  --color-gold-light: #f0c464;
+  --color-cream: #f5ede0;
+  --color-stone: #a89d8c;
+  --color-ember: #4a3520;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-cream);
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #0b0904;
+}
+
+.grain-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.menu-card-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.menu-item-card {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 28px;
+  padding: 30px 32px;
+  border-radius: 30px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.24);
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(244, 182, 62, 0.6);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.34);
+}
+
+.menu-item-image-wrap {
+  width: 170px;
+  height: 170px;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #171717;
+}
+
+.menu-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.menu-item-card:hover .menu-item-image {
+  transform: scale(1.04);
+}
+
+.menu-item-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.menu-item-title {
+  margin: 0;
+  color: var(--color-title);
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-size: clamp(2rem, 3vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+.menu-item-description {
+  margin: 0;
+  max-width: 520px;
+  color: var(--color-description);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.menu-item-price-badge {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: max-content;
+  padding: 18px 30px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.24);
+  background: rgba(0, 0, 0, 0.32);
+  color: var(--color-price);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.menu-item-price-badge span {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .menu-item-card {
+    grid-template-columns: 150px minmax(0, 1fr) auto;
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .menu-item-image-wrap {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 640px) {
+  .menu-item-card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 22px;
+  }
+
+  .menu-item-image-wrap {
+    width: 100%;
+    height: 220px;
+  }
+
+  .menu-item-price-badge {
+    justify-self: end;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    100deg,
+    var(--color-gold) 20%,
+    var(--color-gold-light) 40%,
+    #fff8e6 50%,
+    var(--color-gold-light) 60%,
+    var(--color-gold) 80%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 2.6s linear infinite;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-46px) scaleX(1.6);
+    opacity: 0;
+  }
+}
+
+.steam-wisp {
+  animation: rise 2.8s ease-in infinite;
+}
