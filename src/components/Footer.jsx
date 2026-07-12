@@ -6,7 +6,7 @@ const CONTACT = {
   email: "zuburgerspot@gmail.com",
   instagram: "https://instagram.com/zuburgerspot",
   tiktok: "https://www.tiktok.com/@zuburgerspot?_r=1&_t=ZS-97yUP8BeQ80",
-  telegram: "https://t.me/@Zh161616",
+  telegram: "https://t.me/Zh161616",
 };
 
 function PhoneIcon(props) {
