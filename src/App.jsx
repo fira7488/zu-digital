@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Loader from "./components/Loader.jsx";
 import Header from "./components/Header.jsx";
 import CategoryNav from "./components/CategoryNav.jsx";
@@ -13,7 +13,6 @@ export default function App() {
   const [progress, setProgress] = useState(0);
   const [active, setActive] = useState("all");
   const [query, setQuery] = useState("");
-  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const start = Date.now();
@@ -43,7 +42,6 @@ export default function App() {
 
   const filteredCategories = useMemo(() => {
     if (!normalizedQuery) return categories;
-
     return categories.filter((cat) => {
       const items = grouped.get(cat.id) ?? [];
       return (
@@ -58,7 +56,10 @@ export default function App() {
       ? filteredCategories
       : filteredCategories.filter((c) => c.id === active);
 
-  const featuredItems = menuItems.filter((item) => item.featured).slice(0, 4);
+  // Single flagship dish — confident, not four identical cards
+  const flagship =
+    menuItems.find((item) => item.featured) ??
+    menuItems.find((item) => item.id === "b4"); // American Burger fallback
 
   const handleSelect = (id) => {
     setActive(id);
@@ -94,115 +95,99 @@ export default function App() {
             onSelect={handleSelect}
           />
 
-          <main className="mx-auto max-w-5xl px-4 pt-8 sm:px-6">
-            {/* Plain, clean hero shell — no image behind this whole panel */}
-            <section className="hero-panel mb-8 rounded-[28px] border border-white/10 px-5 py-6 sm:px-7 sm:py-7">
-              <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
-                {/* LEFT COLUMN — the ONLY place the photo lives, boxed and clipped */}
-                <div className="relative overflow-hidden rounded-2xl border border-white/10 px-5 py-6 sm:px-6 sm:py-7">
-                  {/* photo confined to this box only */}
-                  <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
-                    <motion.img
-                      src={logo}
-                      alt=""
-                      className="h-full w-full object-contain"
-                      animate={
-                        prefersReducedMotion ? {} : { x: ["-2%", "2%", "-2%"] }
-                      }
-                      transition={{
-                        duration: 16,
-                        ease: "easeInOut",
-                        repeat: Infinity,
-                      }}
-                      draggable={false}
-                    />
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(11,9,4,0.55)_0%,_rgba(11,9,4,0.82)_65%,_rgba(11,9,4,0.95)_100%)]" />
-                  </div>
+          <main className="mx-auto max-w-5xl px-4 pt-10 sm:px-6 sm:pt-14">
+            {/* HERO — asymmetric, typography-led, no boxed photo */}
+            <section className="relative mb-16 sm:mb-20">
+              {/* logo emblem — a badge, not a background */}
+              <motion.img
+                src={logo}
+                alt="Zu Burger Spot emblem"
+                className="pointer-events-none absolute -top-6 right-0 z-10 h-24 w-24 -rotate-6 rounded-full object-cover ring-1 ring-[var(--color-gold)]/40 shadow-[0_8px_40px_rgba(212,160,23,0.18)] sm:h-32 sm:w-32 sm:-top-8"
+                initial={{ opacity: 0, scale: 0.85, rotate: -18 }}
+                animate={{ opacity: 1, scale: 1, rotate: -6 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.15,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                draggable={false}
+              />
 
-                  <div className="relative z-10">
-                    <p className="text-[11px] tracking-[0.42em] uppercase text-(--color-gold)/80">
-                      Fresh • Fast • Flavorful
-                    </p>
-                    <h1 className="font-display mt-3 text-3xl sm:text-4xl text-(--color-cream)">
-                      Zu Burger Spot
-                    </h1>
-                    <p className="mt-3 max-w-2xl text-sm leading-6 text-(--color-stone) sm:text-[15px]">
-                      Explore a modern digital menu with burgers, pastries,
-                      pancakes, shawarma, fresh juices, shakes, and more — all
-                      presented in a clean, premium style.
-                    </p>
+              <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
+                <div className="pt-4">
+                  <p className="text-[11px] tracking-[0.18em] uppercase text-[var(--color-stone)]">
+                    Fresh &middot; Fast &middot; Flavorful
+                  </p>
+                  <h1 className="font-display mt-4 text-6xl sm:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-[var(--color-cream)]">
+                    Zu Burger
+                    <br />
+                    <span className="font-display italic text-[var(--color-gold)]">
+                      Spot
+                    </span>
+                  </h1>
+                  <p className="mt-6 max-w-md text-[15px] leading-6 text-[var(--color-stone)]">
+                    Burgers, sandwiches, pancakes, shawarma, fresh juices and
+                    shakes — made fresh, served fast.
+                  </p>
 
-                    <div className="mt-5 flex flex-wrap gap-3">
-                      <a
-                        href="#burgers"
-                        className="rounded-full bg-(--color-gold) px-4 py-2 text-sm font-semibold text-[#0b0904] transition-opacity hover:opacity-90"
-                      >
-                        Browse Menu
-                      </a>
-                      <a
-                        href="#footer"
-                        className="rounded-full border border-white/10 px-4 py-2 text-sm text-(--color-cream) transition-colors hover:border-(--color-gold)/40 hover:text-(--color-gold-light)"
-                      >
-                        Visit & Order
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* RIGHT COLUMN — plain, no photo, same as the simple version */}
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {featuredItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3"
+                  <div className="mt-7 flex flex-wrap items-center gap-5">
+                    <a
+                      href="#burgers"
+                      className="rounded-full bg-[var(--color-gold)] px-6 py-2.5 text-sm font-semibold text-[#0b0904] transition-opacity hover:opacity-90"
                     >
-                      <div className="mb-2 flex items-center justify-between gap-3">
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-(--color-gold)">
-                          Popular
-                        </span>
-                        <span className="font-display text-sm text-(--color-gold-light)">
-                          {item.price.toLocaleString("en-US")} Br
-                        </span>
-                      </div>
-                      <p className="font-display text-[15px] text-(--color-cream)">
-                        {item.name}
-                      </p>
-                    </div>
-                  ))}
+                      Browse Menu
+                    </a>
+                    <a
+                      href="#footer"
+                      className="text-sm text-[var(--color-stone)] underline decoration-white/20 underline-offset-4 transition-colors hover:text-[var(--color-cream)]"
+                    >
+                      Visit &amp; Order
+                    </a>
+                  </div>
                 </div>
+
+                {/* single confident flagship dish, not a 4-card grid */}
+                {flagship && (
+                  <div className="pb-1">
+                    <p className="text-[11px] tracking-[0.18em] uppercase text-[var(--color-stone)]">
+                      Most Loved
+                    </p>
+                    <p className="font-display mt-2 text-2xl text-[var(--color-cream)]">
+                      {flagship.name}
+                    </p>
+                    <p className="font-display italic mt-1 text-4xl text-[var(--color-gold)]">
+                      {flagship.price.toLocaleString("en-US")}
+                      <span className="ml-1 text-sm not-italic tracking-[0.1em] text-[var(--color-stone)]">
+                        BR
+                      </span>
+                    </p>
+                  </div>
+                )}
               </div>
 
-              {/* SEARCH BAR — plain, no photo, same as the simple version */}
-              <div className="search-shell mt-6 rounded-2xl border border-white/10 px-3 py-3">
-                <label className="mb-2 block text-[11px] uppercase tracking-[0.3em] text-(--color-stone)">
-                  Search menu
-                </label>
+              {/* search — plain, no box */}
+              <div className="mt-10 border-b border-white/10 pb-2">
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search burgers, pancakes, shakes..."
-                  className="w-full border-0 bg-transparent text-sm text-(--color-cream) outline-none placeholder:text-(--color-stone)"
+                  placeholder="Search the menu&hellip;"
+                  className="w-full border-0 bg-transparent text-[15px] text-[var(--color-cream)] outline-none placeholder:text-[var(--color-stone)]/60"
                 />
               </div>
             </section>
 
-            <div className="mb-6 flex items-center justify-between gap-3">
-              <p className="text-[11px] uppercase tracking-[0.32em] text-(--color-stone)">
-                {visibleCategories.length} categories shown
-              </p>
-            </div>
-
             {visibleCategories.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-white/10 px-5 py-10 text-center text-sm text-(--color-stone)">
+              <div className="rounded-2xl border border-dashed border-white/10 px-5 py-10 text-center text-sm text-[var(--color-stone)]">
                 No menu items match that search yet.
               </div>
             ) : (
-              <div className="space-y-14">
-                {visibleCategories.map((cat) => (
+              <div className="space-y-16">
+                {visibleCategories.map((cat, i) => (
                   <MenuSection
                     key={cat.id}
                     category={cat}
                     items={grouped.get(cat.id) ?? []}
+                    featured={active === "all" && i === 0}
                   />
                 ))}
               </div>
