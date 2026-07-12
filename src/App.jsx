@@ -109,7 +109,11 @@ export default function App() {
                 className="pointer-events-none absolute -top-6 right-0 z-10 h-24 w-24 -rotate-6 rounded-full object-cover ring-1 ring-[var(--color-gold)]/40 shadow-[0_8px_40px_rgba(212,160,23,0.18)] sm:h-32 sm:w-32 sm:-top-8"
                 initial={{ opacity: 0, scale: 0.85, rotate: -18 }}
                 animate={{ opacity: 1, scale: 1, rotate: -6 }}
-                transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.15,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 draggable={false}
               />
 
@@ -132,13 +136,13 @@ export default function App() {
 
                   <div className="mt-7 flex flex-wrap items-center gap-5">
                     <a
-                      href="#burgers"
+                      href="#search-menu"
                       className="rounded-full bg-[var(--color-gold)] px-6 py-2.5 text-sm font-semibold text-[#0b0904] transition-opacity hover:opacity-90"
                     >
                       Browse Menu
                     </a>
                     <a
-                      href="#footer"
+                      href="#menu"
                       className="text-sm text-[var(--color-stone)] underline decoration-white/20 underline-offset-4 transition-colors hover:text-[var(--color-cream)]"
                     >
                       Visit &amp; Order
@@ -164,7 +168,10 @@ export default function App() {
                 )}
               </div>
 
-              <div className="mt-10 border-b border-white/10 pb-2">
+              <div
+                id="search-menu"
+                className="mt-10 scroll-mt-24 border-b border-white/10 pb-2"
+              >
                 <label htmlFor="menu-search" className="sr-only">
                   Search the menu
                 </label>
@@ -183,7 +190,7 @@ export default function App() {
                 No menu items match that search yet.
               </div>
             ) : (
-              <div className="space-y-16">
+              <div id="menu" className="space-y-16 scroll-mt-24">
                 {visibleCategories.map((cat) => (
                   <MenuSection
                     key={cat.id}

@@ -163,8 +163,18 @@ export default function Footer() {
             ))}
           </div>
 
+          <p className="mt-1 text-[11px] text-[var(--color-stone)]/70">
+            &copy; {new Date().getFullYear()} © 2026 Zu Burger Spot. All rights
+            reserved.
+          </p>
           <p className="mt-8 text-[11px] text-[var(--color-stone)]/70">
-            Prices in Ethiopian Birr &middot; Menu subject to change
+            developed by{" "}
+            <a
+              href="https://t.me/M_F2_phelinophiler"
+              className="text-[var(--color-gold-light)] hover:underline"
+            >
+              FK Tech
+            </a>
           </p>
         </div>
       </div>
