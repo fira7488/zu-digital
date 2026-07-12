@@ -7,6 +7,9 @@ export default function Loader({ progress }) {
       className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-[var(--color-bg)]"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.7, ease: "easeInOut" } }}
+      role="status"
+      aria-live="polite"
+      aria-label="Loading Zu Burger Spot digital menu"
     >
       {/* single photo, full-bleed, feathered — no second background image */}
       <motion.div
@@ -31,7 +34,7 @@ export default function Loader({ progress }) {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(11,9,4,0.35)_0%,_rgba(11,9,4,0.85)_60%,_rgba(11,9,4,1)_100%)]" />
 
       {/* steam wisps */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[7.5rem] flex gap-3 z-10">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[7.5rem] flex gap-3 z-10" aria-hidden="true">
         {[0, 0.5, 1].map((delay, i) => (
           <span
             key={i}

@@ -1,16 +1,13 @@
 import logo from "../assets/images/logo.jpg";
 
-// ── Edit these with your real details ──────────────────────────────
 const CONTACT = {
-  phone: "+251 900 000 000",
-  phoneHref: "tel:+251900000000",
-  email: "hello@zuburgerspot.com",
+  phone: "+251916098383",
+  phoneHref: "tel:+251916098383",
+  email: "zuburgerspot@gmail.com",
   instagram: "https://instagram.com/zuburgerspot",
-  facebook: "https://facebook.com/zuburgerspot",
-  tiktok: "https://tiktok.com/@zuburgerspot",
-  telegram: "https://t.me/zuburgerspot",
+  tiktok: "https://www.tiktok.com/@zuburgerspot?_r=1&_t=ZS-97yUP8BeQ80",
+  telegram: "https://t.me/@Zh161616",
 };
-// ────────────────────────────────────────────────────────────────────
 
 function PhoneIcon(props) {
   return (
@@ -134,25 +131,23 @@ export default function Footer() {
             Shashamane
           </p>
 
-          {/* contact */}
           <div className="mt-6 flex flex-col items-center gap-2 text-sm sm:flex-row sm:gap-6">
             <a
               href={CONTACT.phoneHref}
               className="flex items-center gap-2 text-[var(--color-stone)] transition-colors hover:text-[var(--color-gold-light)]"
             >
-              <PhoneIcon className="h-4 w-4" />
+              <PhoneIcon className="h-4 w-4" aria-hidden="true" />
               {CONTACT.phone}
             </a>
             <a
               href={`mailto:${CONTACT.email}`}
               className="flex items-center gap-2 text-[var(--color-stone)] transition-colors hover:text-[var(--color-gold-light)]"
             >
-              <MailIcon className="h-4 w-4" />
+              <MailIcon className="h-4 w-4" aria-hidden="true" />
               {CONTACT.email}
             </a>
           </div>
 
-          {/* socials */}
           <div className="mt-6 flex items-center gap-4">
             {socials.map(({ icon: Icon, href, label }) => (
               <a
@@ -161,9 +156,9 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-[var(--color-stone)] transition-colors hover:border-[var(--color-gold)]/50 hover:text-[var(--color-gold-light)]"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-[var(--color-stone)] transition-colors hover:border-[var(--color-gold)]/50 hover:text-[var(--color-gold-light)]"
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-4 w-4" aria-hidden="true" />
               </a>
             ))}
           </div>

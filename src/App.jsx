@@ -56,10 +56,9 @@ export default function App() {
       ? filteredCategories
       : filteredCategories.filter((c) => c.id === active);
 
-  // Single flagship dish — confident, not four identical cards
   const flagship =
     menuItems.find((item) => item.featured) ??
-    menuItems.find((item) => item.id === "b4"); // American Burger fallback
+    menuItems.find((item) => item.id === "b1");
 
   const handleSelect = (id) => {
     setActive(id);
@@ -76,6 +75,9 @@ export default function App() {
 
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        Skip to menu
+      </a>
       <div className="grain-overlay" />
       <AnimatePresence>
         {loading && <Loader key="loader" progress={progress} />}
@@ -95,21 +97,19 @@ export default function App() {
             onSelect={handleSelect}
           />
 
-          <main className="mx-auto max-w-5xl px-4 pt-10 sm:px-6 sm:pt-14">
-            {/* HERO — asymmetric, typography-led, no boxed photo */}
-            <section className="relative mb-16 sm:mb-20">
-              {/* logo emblem — a badge, not a background */}
+          <main
+            id="main-content"
+            className="mx-auto max-w-5xl px-4 pt-10 sm:px-6 sm:pt-14"
+          >
+            {/* HERO — asymmetric, typography-led, logo as an emblem badge */}
+            <section className="relative mb-16 sm:mb-20" aria-label="Welcome">
               <motion.img
                 src={logo}
                 alt="Zu Burger Spot emblem"
                 className="pointer-events-none absolute -top-6 right-0 z-10 h-24 w-24 -rotate-6 rounded-full object-cover ring-1 ring-[var(--color-gold)]/40 shadow-[0_8px_40px_rgba(212,160,23,0.18)] sm:h-32 sm:w-32 sm:-top-8"
                 initial={{ opacity: 0, scale: 0.85, rotate: -18 }}
                 animate={{ opacity: 1, scale: 1, rotate: -6 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.15,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
+                transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                 draggable={false}
               />
 
@@ -146,7 +146,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* single confident flagship dish, not a 4-card grid */}
                 {flagship && (
                   <div className="pb-1">
                     <p className="text-[11px] tracking-[0.18em] uppercase text-[var(--color-stone)]">
@@ -165,9 +164,12 @@ export default function App() {
                 )}
               </div>
 
-              {/* search — plain, no box */}
               <div className="mt-10 border-b border-white/10 pb-2">
+                <label htmlFor="menu-search" className="sr-only">
+                  Search the menu
+                </label>
                 <input
+                  id="menu-search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search the menu&hellip;"
@@ -182,12 +184,11 @@ export default function App() {
               </div>
             ) : (
               <div className="space-y-16">
-                {visibleCategories.map((cat, i) => (
+                {visibleCategories.map((cat) => (
                   <MenuSection
                     key={cat.id}
                     category={cat}
                     items={grouped.get(cat.id) ?? []}
-                    featured={active === "all" && i === 0}
                   />
                 ))}
               </div>
