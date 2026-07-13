@@ -160,7 +160,7 @@ export const menuItems = [
   { id: "d4", name: "Water 1/2L", category: "soft-drinks", price: 40, image: img("1681495514493-eaf0bd047714") },
 
   // Extras
-  { id: "e1", name: "Foil", category: "extras", price: 100 },
-  { id: "e2", name: "Chips", category: "extras", price: 150, image: img("1707773726979-4b87cd1c838a") },
+  { id: "e1", name: "Foil", category: "extras", price: 100, image: img("1765188987879-08ac9384f430") },
+  { id: "e2", name: "Chips", category: "extras", price: 150, image: img("1688978181542-87a886a16fbe") },
   { id: "e3", name: "Moines", category: "extras", price: 50 },
 ];
