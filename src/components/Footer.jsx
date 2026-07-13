@@ -4,7 +4,7 @@ const CONTACT = {
   phone: "+251916098383",
   phoneHref: "tel:+251916098383",
   email: "zuburgerspot@gmail.com",
-  instagram: "https://instagram.com/zuburgerspot",
+  instagram: "https://www.instagram.com/zubeydaa1626/",
   tiktok: "https://www.tiktok.com/@zuburgerspot?_r=1&_t=ZS-97yUP8BeQ80",
   telegram: "https://t.me/Zh161616",
 };
