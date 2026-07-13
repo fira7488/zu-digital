@@ -151,18 +151,12 @@ export default function App() {
                 </div>
 
                 {flagship && (
-                  <div className="pb-1">
-                    <p className="text-[11px] tracking-[0.18em] uppercase text-[var(--color-stone)]">
-                      Most Loved
+                  <div className="pb-4 relative">
+                    <p className="font-display text-xs tracking-[0.25em] uppercase text-[var(--color-stone)] mb-3">
+                      House Philosophy
                     </p>
-                    <p className="font-display mt-2 text-2xl text-[var(--color-cream)]">
-                      {flagship.name}
-                    </p>
-                    <p className="font-display italic mt-1 text-4xl text-[var(--color-gold)]">
-                      {flagship.price.toLocaleString("en-US")}
-                      <span className="ml-1 text-sm not-italic tracking-[0.1em] text-[var(--color-stone)]">
-                        BR
-                      </span>
+                    <p className="font-serif italic text-4xl md:text-5xl text-[var(--color-gold)] font-light leading-tight max-w-lg">
+                      “Followed my heart and it led me to Zu Burger”
                     </p>
                   </div>
                 )}
